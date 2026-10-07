@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/style.css">
+  <title>Painel | CRUD Usuários</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CRUD de Usuários</strong>
+      <span class="topbar-subtitle" id="topoPerfil"></span>
+    </div>
+    <button class="secondary small" onclick="logout()">Sair</button>
+  </header>
+
+  <main class="dashboard">
+    <div class="hero">
+      <div>
+        <span class="eyebrow" id="rotuloPerfil"></span>
+        <h1 id="boasVindas"></h1>
+        <p id="descricaoPerfil"></p>
+      </div>
+    </div>
+
+    <div class="grid-dashboard" id="gridPrincipal">
+      <div>
+        <section class="card">
+          <h2>Meu perfil</h2>
+          <p class="muted" id="infoFixa"></p>
+
+          <label for="nomePerfil">Nome</label>
+          <input id="nomePerfil">
+
+          <div id="grupoTelefone" class="hidden">
+            <label for="telefonePerfil">Telefone</label>
+            <input id="telefonePerfil">
+          </div>
+
+          <div id="grupoEspecialidade" class="hidden">
+            <label for="especialidadePerfil">Especialidade</label>
+            <input id="especialidadePerfil">
+          </div>
+
+          <label for="senhaPerfil">Nova senha (opcional)</label>
+          <input id="senhaPerfil" type="password" placeholder="Deixe em branco para manter">
+
+          <button class="primary" onclick="salvarPerfil()">Salvar alterações</button>
+          <p id="statusPerfil" class="message"></p>
+        </section>
+
+        <section class="card hidden" id="cardCriar" style="margin-top: 20px;">
+          <h2>Novo usuário</h2>
+          <p class="muted">Somente administradores.</p>
+
+          <label for="nomeNovo">Nome</label>
+          <input id="nomeNovo">
+
+          <label for="emailNovo">E-mail</label>
+          <input id="emailNovo" type="email">
+
+          <label for="senhaNovo">Senha</label>
+          <input id="senhaNovo" type="password">
+
+          <label for="roleNovo">Perfil</label>
+          <select id="roleNovo" onchange="mostrarCamposNovo()">
+            <option value="paciente">Paciente</option>
+            <option value="medico">Médico</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          <div id="novoMedico" class="hidden">
+            <label for="crmNovo">CRM</label>
+            <input id="crmNovo">
+            <label for="especialidadeNovo">Especialidade</label>
+            <input id="especialidadeNovo">
+          </div>
+
+          <div id="novoPaciente">
+            <label for="cpfNovo">CPF</label>
+            <input id="cpfNovo">
+            <label for="nascimentoNovo">Data de nascimento</label>
+            <input id="nascimentoNovo" type="date">
+            <label for="telefoneNovo">Telefone</label>
+            <input id="telefoneNovo">
+          </div>
+
+          <button class="primary" onclick="criarUsuario()">Criar usuário</button>
+          <p id="statusCrud" class="message"></p>
+        </section>
+      </div>
+
+      <section class="card users-card hidden" id="cardLista">
+        <div class="section-title">
+          <div>
+            <h2 id="tituloLista">Usuários</h2>
+            <p class="muted" id="subtituloLista"></p>
+          </div>
+        </div>
+        <div id="usuarios" class="user-list"></div>
+      </section>
+    </div>
+  </main>
+  <div id="modalEditar" class="modal hidden">
+    <div class="modal-box card">
+      <h2>Editar usuário</h2>
+
+      <label for="nomeEditar">Nome</label>
+      <input id="nomeEditar">
+
+      <label for="emailEditar">E-mail</label>
+      <input id="emailEditar" type="email">
+
+      <label for="roleEditar">Perfil</label>
+      <select id="roleEditar">
+        <option value="paciente">Paciente</option>
+        <option value="medico">Médico</option>
+        <option value="admin">Admin</option>
+      </select>
+
+      <div class="modal-actions">
+        <button class="secondary" onclick="fecharModais()">Cancelar</button>
+        <button class="primary" onclick="salvarEdicao()">Salvar</button>
+      </div>
+      <p id="statusEditar" class="message"></p>
+    </div>
+  </div>
+
+  <div id="modalExcluir" class="modal hidden">
+    <div class="modal-box card">
+      <h2>Excluir usuário</h2>
+      <p id="textoExcluir" class="muted"></p>
+
+      <div class="modal-actions">
+        <button class="secondary" onclick="fecharModais()">Cancelar</button>
+        <button class="danger" onclick="confirmarExclusao()">Excluir</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/usuarios.js"></script>
+</body>
+</html>
